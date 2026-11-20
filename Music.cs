@@ -28,4 +28,22 @@ public class Music {
         }
         NumberOfRatings += 1;
     }
+
+    public bool IsRecommended(double minRate) {
+        if (Rating >= minRate) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    public string GetInfo() {
+        return $">>> {Name} <<<\n" +
+               $"Артист: {Artist}\n" +
+               $"Тип: {Type}\n" +
+               $"Год: {Year}\n" +
+               $"Оценка: {Rating}\n" +
+               $"Количество оценок: {NumberOfRatings}";
+    }
 }

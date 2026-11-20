@@ -52,45 +52,44 @@ Music hm = new Music("Heavy Metal", "Kai Angel & 9mice", 2023);
 Music shqcore = new Music("Shqcore", "Sqwore", 2025);
 Music militantum = new Music("MILITANTUM", "тёмный принц", 2026);
 
-hm.Type = "EP";
+List<Music> collection = [hm, shqcore, militantum];
+int counter = 1;
 
-Console.WriteLine("=== АЛЬБОМ 1 ===");
-Console.WriteLine($"Название: {hm.Name}");
-Console.WriteLine($"Артист: {hm.Artist}");
-Console.WriteLine($"Тип: {hm.Type}");
-Console.WriteLine($"Год: {hm.Year}");
-Console.WriteLine($"Оценка: {hm.Rating}");
-Console.WriteLine($"Количество оценок: {hm.NumberOfRatings}");
-Console.WriteLine();
+foreach (Music album in collection) {
+    Console.WriteLine($"=== АЛЬБОМ {counter} ===");
+    Console.WriteLine(album.GetInfo());
+    Console.WriteLine();
+    counter++;
+}
 
-Console.WriteLine("=== АЛЬБОМ 2 ===");
-Console.WriteLine($"Название: {shqcore.Name}");
-Console.WriteLine($"Артист: {shqcore.Artist}");
-Console.WriteLine($"Тип: {shqcore.Type}");
-Console.WriteLine($"Год: {shqcore.Year}");
-Console.WriteLine($"Оценка: {shqcore.Rating}");
-Console.WriteLine($"Количество оценок: {shqcore.NumberOfRatings}");
-Console.WriteLine();
+collection[0].Type = "EP";
 
-Console.WriteLine("=== АЛЬБОМ 3 ===");
-Console.WriteLine($"Название: {militantum.Name}");
-Console.WriteLine($"Артист: {militantum.Artist}");
-Console.WriteLine($"Тип: {militantum.Type}");
-Console.WriteLine($"Год: {militantum.Year}");
-Console.WriteLine($"Оценка: {militantum.Rating}");
-Console.WriteLine($"Количество оценок: {militantum.NumberOfRatings}");
-Console.WriteLine();
+Console.WriteLine($"Оценка альбома \"{collection[1].Name}\" до вызова: {collection[1].Rating} с {collection[1].NumberOfRatings} оценок пользователей");
 
-Console.WriteLine($"Оценка альбома \"{shqcore.Name}\" до вызова: {shqcore.Rating} с {shqcore.NumberOfRatings} оценок пользователей");
+collection[1].AddRating(5);
+collection[1].AddRating(4);
+collection[1].AddRating(5);
 
-shqcore.AddRating(5);
-shqcore.AddRating(4);
-shqcore.AddRating(5);
+Console.WriteLine($"Оценка альбома \"{collection[1].Name}\" после трёх правильных вызовов: {collection[1].Rating} с {collection[1].NumberOfRatings} оценок пользователей");
 
-Console.WriteLine($"Оценка альбома \"{shqcore.Name}\" после трёх правильных вызовов: {shqcore.Rating} с {shqcore.NumberOfRatings} оценок пользователей");
+collection[1].AddRating(6);
+collection[1].AddRating(-2);
 
-shqcore.AddRating(6);
-shqcore.AddRating(-2);
+Console.WriteLine($"Оценка альбома \"{collection[1].Name}\" после двух неправильных вызовов (не изменился): {collection[1].Rating} с {collection[1].NumberOfRatings} оценок пользователей");
 
+collection[0].AddRating(3);
+collection[0].AddRating(4);
+collection[0].AddRating(3);
 
-Console.WriteLine($"Оценка альбома \"{shqcore.Name}\" после двух неправильных вызовов (не изменился): {shqcore.Rating} с {shqcore.NumberOfRatings} оценок пользователей");
+collection[2].AddRating(5);
+collection[2].AddRating(4);
+collection[2].AddRating(4);
+
+foreach (Music album in collection) {
+    if (album.IsRecommended(4.0)) {
+        Console.WriteLine($"Альбом \"{album.Name}\" от {album.Artist} можно слушать");
+    }
+    else {
+        Console.WriteLine($"Альбом \"{album.Name}\" от {album.Artist} нельзя слушать");
+    }
+}
